@@ -50,7 +50,7 @@
   * This is what you should see after you create the role:
   ![](./source-md/IAM-6-RoleCreated.png)
   
-### Step 3 -- Setup an EC2 instance volume.
+### Step 3 [Optional] -- Setup an EC2 instance volume.
 * Volumes are storage blocks that allow you to save your files without having to re-download files, 
 software, and other dependencies.
 * Navigate to the EC2 service page by searching EC2 under the Services tab.

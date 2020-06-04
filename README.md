@@ -1,42 +1,31 @@
 # AWS-BlenderRendering
-**Description**
 
 ## Steps to begin rendering images with blender on AWS EC2
-### Step 1
-  * Make an aws account
+
+### Step 1 -- Create an S3 Bucket
   * Setup S3 storage
-    * Click the **Services** dropdown at the top left of the website.
-    * Navigate to the search bar and enter "S3"
-    
-    ![](./source-md/1-aws-search-s3.png)
-    
-    * Click the **Create Bucket** button.
-    * Give it a name; must be unique among all buckets on aws.
+    * Click the Services dropdown at the top left of the website.
+    * Navigate to the search bar and enter "S3".
+    ![](./source-md/S3-1-SearchS3.png)
+    * Click the Create Bucket button.
+    ![](./source-md/S3-2-CreateBucket.png)
+    * Give it a name; must be unique among all buckets on the internet.
     * Select the region you will be running your ec2 instance from.
-    * Skip the next two sections by clicking **Next**. 
-        Those are additional options you don't have to worry about.
-    * Finally click **Create Bucket**
+    ![](./source-md/S3-3-SetNameAndRegion.png)
+    * Skip the next two sections. 
+        Those are additional options for more control over bucket access, and
+        versioning.
+    ![](./source-md/S3-4-SetVersioningAndLogging.png)
+    ![](./source-md/S3-5-SetAccessLevels.png)
+    * Look over the settings of your bucket and click Create
+    ![](./source-md/S3-6-CreateBucket.png)
     * Take note of your S3 bucket name, you will need it if you want access to it from the aws cli on 
     your own computer or ec2 instance.
-  
-  * EC2 Pre-setup
     
-    Next we will need to setup a security group and an IAM role for the ec2 instance.
-    * Click the **Services** dropdown at the top left of the website.
-    * Navigate to the search bar and enter "IAM"
-    * Click **Roles** under the middle section **IAM Resources**
-    * Click **Create Role**
-    * Choose the **EC2** option under **Common Use Cases** and click **Next: Permissions**
-    * Find the search bar and enter *s3*, and select **AmazonS3FullAccess**
-    * Click **Next:Tags**
-    * Click **Next:Review**
-    * Give your role a name, and click **Create Role**
-
+### Step 2 -- Create an IAM Role and Security Group
+  * Search IAM under the Services tab.
   * 
   
   * Launch EC2 instance
-    * 
   * Connect to your instance
-    * 
   * Install dependencies and software
-    * 

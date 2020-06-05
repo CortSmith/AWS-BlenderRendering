@@ -16,12 +16,17 @@ Amazon Web Services, Blender, and Python.
     - Click the Create Bucket button.
     
     - Give it a name; must be unique among all buckets on the internet.
+        
+        - For this tutorial, I will be naming mine 'render-output'.
     
     - Select the region you will be running your ec2 instance from.
+        
+        - For this tutorial, I will be running in US West (Oregon).
     
     - Skip the next two sections. 
         Those are additional options for more control over bucket access, and
-        versioning.
+        versioning bucket objects (aka, your files; versioning allows you to overwrite files 
+        with the same name, but keeping the original versions as copies).
     
     - Look over the settings of your bucket and click Create
     
@@ -29,6 +34,9 @@ Amazon Web Services, Blender, and Python.
     your own computer or ec2 instance.
     
     - This is what your bucket should look like:
+    
+    ![](./source-md/S3-7-bucketList.png)
+    ![](./source-md/S3-8-insideBucket.png)
     
 ---
 
@@ -48,11 +56,18 @@ Amazon Web Services, Blender, and Python.
     for this tutorial we will simply use full access.
   
   - Enter the name and description and click create.
+    
+    - For this tutorial, I will name it ec2-rendering.
   
-  - The description should describe its use case, for our case we are using this 
-    bucket for storing our blender rendering output images.
+  - The description should describe its use case.
+    
+    - For this tutorial, we will alter the filler description by adding 'S3' to it:
+    
+      - Allows EC2 instances to call AWS S3 services on your behalf.
   
   - This is what you should see after you create the role:
+  
+  ![](./source-md/IAM-6-RoleCreated.png)
 
 ---
 
@@ -77,16 +92,48 @@ Under Network & Security, find and select Security Groups.
 - On the top right of the page, click the Create Security Group button.
 
 - Enter a name and description.
+  
+  - For this tutorial, I will be setting these to:
+  
+    - Name -> ec2-rendering
+    - Description -> Key for ec2 rendering instances
 
 - For simplicities sake, we will adding only one rule for All Traffic.
 
 - Under Inbound Rules and Outbound Rules, click Add Rule.
 
-    - Change the Type to All Traffic.
-    
-    - Change Source to My IP
-    
-    - Do the same under Outbound Rules
+  - Change the Type to All Traffic.
+
+  - Change Source to My IP
+
+  - Do the same under Outbound Rules
+  
+- Keep in mind you can change the Inbound and Outbound Rules at any time to adjust to your current needs, or 
+requirements, such as, allowing other ip's to connect and not just yours.
+
+![](./source-md/SG-1-Created.png)
+
+---
+
+### Creating a Key Pair
+
+- Key pairs are encrypted keys used to connect to aws services, and are required to connect to EC2.
+
+- Navigate to the EC2 Dashboard by searching 'EC2' in the services tab at the top of the website page.
+
+- Find 'Network & Security' tab, and select 'Key Pairs'.
+
+- On the top right, click 'Create Key Pair'
+
+- Enter a name.
+  
+  - For this tutorial, I will be naming mine 'ec2-rendering'
+  and setting the file format to '.pem'
+
+- Click Create Key Pair, and download the key file. Make sure you save the key file to your hard drive, otherwise 
+you will need to recreate your key, there is no other way to get a copy of your key pair.
+
+![](./source-md/KP-1-KeypairCreated.png)
 
 ---
 

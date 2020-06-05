@@ -76,7 +76,27 @@ Amazon Web Services, Blender, and Python.
 - Volumes are storage blocks that allow you to save your files without having to re-download files, 
 software, and other dependencies.
 
-- Navigate to the EC2 service page by searching EC2 under the Services tab.
+- Navigate to the EC2 Dashboard by searching EC2 under the Services tab.
+
+- In the left column, find the Elastic Block Store section, and select Volumes.
+
+- Click Create Volume.
+
+- Adjust the Size (GiB) value to a size in gigabytes that suits your needs.
+
+  - I generally wouldn't go over 100 gigabytes, but you will probably want around 10 - 20 max.
+  
+- Set the Availability Zone to us-west-2a.
+
+  - Take note of that, you will need to launch your EC2 instance in the same Availability Zone to access it. 
+
+- Add a tag:
+
+  - In the first section enter 'Name', in the second section enter 'ec2-rendering'.
+  
+- And you're done!
+
+![](./source-md/V-1-CreateVolumeResult.png)
 
 ---
 

@@ -5,7 +5,17 @@ Amazon Web Services, Blender, and Python.
 
 ---
 
-### Step 1 - Create an S3 Bucket for Blender output files
+## Pre-requisites
+
+- [AWS CLI (Windows)(Optional)](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-windows.html)
+
+- [Python (3.7.6)(Optional)](https://www.python.org/downloads/release/python-376/)
+
+- [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
+
+---
+
+### Create an S3 Bucket for Blender output files
 
 - Setup S3 storage
     
@@ -40,7 +50,7 @@ Amazon Web Services, Blender, and Python.
     
 ---
 
-### Step 2 - Create an IAM Role and Security Group
+### Create an IAM Role and Security Group
 
   - Search IAM under the Services tab.
   
@@ -71,7 +81,7 @@ Amazon Web Services, Blender, and Python.
 
 ---
 
-### Step 3 [Optional] - Setup an EC2 instance volume.
+### [Optional] - Setup an EC2 instance volume.
 
 -Volumes are storage blocks that allow you to save your files without having to re-download files, 
 software, and other dependencies.
@@ -208,13 +218,60 @@ you will need to recreate your key, there is no other way to get a copy of your 
 
 - Navigate to the EC2 Dashboard
 
+- Look at the left column, and find the section labeled "Elastic Block Store", and select Volumes
+
+- Find your volume and select it.
+
+- Above the volumes list there are two buttons, click the one labeled Actions and select Attach Volume
+
+- Select the text box next to Instance and find your instance, look for the name you gave your instance upon prior to
+launch, and select it and click Attach.
+
 ---
 
 ### Connect to your instance
 
+- There are many ways to connect to your instance, I will cover two ways, SSH and Putty SSH.
+  - SSH is the most portable solution, Putty is the simpler windows version.
+
+- Navigate to the EC2 Dashboard from the Services tab.
+
+- Find the Instances section on the left column and select Instances.
+
+- Find your ec2 instance that is currently running and select it.
+
+- Find the button above your instances list labeled Actions and select Connect.
+
+- Copy the line of code at the bottom of that info screen.
+
+  - Should look similar to this: `ssh -i "ec2-rendering.pem" ubuntu@ec2-54-190-22-239.us-west-2.compute.amazonaws.com`
+
+  - However, you will need to change the line in quotations after the (-i) to the location on your hard drive that the 
+  pem file is located - e.g. "C:/Program Files/SSH/ec2-rendering.pem"
+  
+  - It is helpful to copy this line to a text file and change it then copy/paste it into a command prompt.
+  
+- Open a command prompt, you can do this by opening the start menu and searching cmd.
+
+- 
+
 ---
 
 ### Install dependencies
+
+- Update
+
+- install python
+
+- install blender 2.82
+
+- install git
+
+- clone the git repo in a common repository
+
+- run blender in the background on your script and blender project file.
+
+  - project files should upload directly to your s3 bucket as it renders images.
 
 ---
 

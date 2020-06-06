@@ -5,7 +5,7 @@ Amazon Web Services, Blender, and Python.
 
 ---
 
-###Step 1 - Create an S3 Bucket for Blender output files
+### Step 1 - Create an S3 Bucket for Blender output files
 
 - Setup S3 storage
     
@@ -40,7 +40,7 @@ Amazon Web Services, Blender, and Python.
     
 ---
 
-###Step 2 - Create an IAM Role and Security Group
+### Step 2 - Create an IAM Role and Security Group
 
   - Search IAM under the Services tab.
   
@@ -71,9 +71,9 @@ Amazon Web Services, Blender, and Python.
 
 ---
 
-###Step 3 [Optional] - Setup an EC2 instance volume.
+### Step 3 [Optional] - Setup an EC2 instance volume.
 
-- Volumes are storage blocks that allow you to save your files without having to re-download files, 
+-Volumes are storage blocks that allow you to save your files without having to re-download files, 
 software, and other dependencies.
 
 - Navigate to the EC2 Dashboard by searching EC2 under the Services tab.
@@ -100,9 +100,9 @@ software, and other dependencies.
 
 ---
 
-###Creating your key-pair for SSH
+### Creating your key-pair for SSH
 
-Key-pairs are used to connect to aws via ssh encryption, to keep your connection secure. Keys are also required in order to connect to your ec2 instance.
+- Key-pairs are used to connect to aws via ssh encryption, to keep your connection secure. Keys are also required in order to connect to your ec2 instance.
 
 - Search EC2 in the Services tab search bar and navigate to the EC2 dashboard.
 
@@ -157,7 +157,7 @@ you will need to recreate your key, there is no other way to get a copy of your 
 
 ---
 
-### Launch your EC2 instance
+###Launch your EC2 instance
 
 - Find the Instances section in the left column, and click Instances below.
 
@@ -178,11 +178,11 @@ you will need to recreate your key, there is no other way to get a copy of your 
 
 - Configuration setup, starting from the top look for each item listed below, all other items are fine as default.
 
-- Purchasing Options -> check Request Spot Instances, leave all other settings as default.
-
-- Subnet             -> subnet-2a1bfe52 | Default in us-west-2a
-
-- IAM role           -> ec2-rendering
+    - Purchasing Options -> check Request Spot Instances, leave all other settings as default.
+    
+    - Subnet             -> subnet-2a1bfe52 | Default in us-west-2a
+    
+    - IAM role           -> ec2-rendering
 
 - Storage will be left as default
   
@@ -202,18 +202,11 @@ you will need to recreate your key, there is no other way to get a copy of your 
 
 - And you're done!
 
-Select free tier server, must be ubuntu.
-Subnet = us-west-2a
-IAM Role = ec2-rendering
-Skip Storage
-Add Tag: Name,EC2 Spot Instance Rendering
-Select the option bubble "Select an existing security group"
-Select your Security Group: ec2-rendering
-Launch
-
 ---
 
-###[Placeholder]
+###Attaching Volume to EC2 Instance
+
+- Navigate to the EC2 Dashboard
 
 ---
 

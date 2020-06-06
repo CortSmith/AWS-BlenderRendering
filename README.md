@@ -15,6 +15,16 @@ Amazon Web Services, Blender, and Python.
 
 ---
 
+## Server-side Dependencies
+
+- [Git]()
+
+- [Blender 2.83](`https://github.com/blender/blender.git`)
+
+- [Precompiled Libraries for Blender]()
+
+---
+
 ### Create an S3 Bucket for Blender output files
 
 - Setup S3 storage
@@ -110,9 +120,7 @@ software, and other dependencies.
 
 ---
 
-### Creating your key-pair for SSH
-
-- Key-pairs are used to connect to aws via ssh encryption, to keep your connection secure. Keys are also required in order to connect to your ec2 instance.
+### Creating a Security Group
 
 - Search EC2 in the Services tab search bar and navigate to the EC2 dashboard.
 
@@ -136,7 +144,7 @@ Under Network & Security, find and select Security Groups.
 
   - Change Source to My IP
 
-  - Do the same under Outbound Rules
+  - Do the same under Outbound Rules, except Change the Source to Anywhere.
   
 - Keep in mind you can change the Inbound and Outbound Rules at any time to adjust to your current needs, or 
 requirements, such as, allowing other ip's to connect and not just yours.
@@ -146,6 +154,9 @@ requirements, such as, allowing other ip's to connect and not just yours.
 ---
 
 ### Creating a Key Pair
+
+- Key-pairs are used to connect to aws via ssh encryption, to keep your connection secure. 
+Keys are also required in order to connect to your ec2 instance.
 
 - Key pairs are encrypted keys used to connect to aws services, and are required to connect to EC2.
 
@@ -259,19 +270,38 @@ launch, and select it and click Attach.
 
 ### Install dependencies
 
-- Update
+- There is a good bit of setup within the server that needs to be done prior to running our script and getting our 
+rendered images from blender. The following will be a series of commands used, in order, to install all dependencies 
+required for us to run the script on blender.
 
-- install python
+- The below is a package manager update, and package installation.
 
-- install blender 2.82
+```commandline
+sudo apt-get update
+sudo apt-get install build-essential git subversion cmake libx11-dev libxxf86vm-dev libxcursor-dev libxi-dev libxrandr-dev libxinerama-dev libglew-dev
+```
 
-- install git
+- We are going to be building blender from source using precompiled libraries for Intel & AMD based linux systems.
 
+```commandline
+mkdir blender-git/
+cd blender-git/
+git clone https://github.com/blender/blender.git
+
+mkdir lib/
+cd lib
+svn checkout https://svn.blender.org/svnroot/bf-blender/trunk/lib/linux_centos7_x86_64
+cd ..
+cd blender/
+make update
+make
+```
+
+[//]: # (Steps that have yet to be setup.)
+- After the build finished, you will find blender ready to run in ~/blender-git/build_linux/bin.
 - clone the git repo in a common repository
-
 - run blender in the background on your script and blender project file.
-
-  - project files should upload directly to your s3 bucket as it renders images.
+- project files should upload directly to your s3 bucket as it renders images.
 
 ---
 

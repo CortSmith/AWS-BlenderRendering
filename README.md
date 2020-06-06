@@ -157,7 +157,7 @@ you will need to recreate your key, there is no other way to get a copy of your 
 
 ---
 
-###Launch your EC2 instance
+### Launch your EC2 instance
 
 - Find the Instances section in the left column, and click Instances below.
 
@@ -204,7 +204,7 @@ you will need to recreate your key, there is no other way to get a copy of your 
 
 ---
 
-###Attaching Volume to EC2 Instance
+### Attaching Volume to EC2 Instance
 
 - Navigate to the EC2 Dashboard
 

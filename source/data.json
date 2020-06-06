@@ -1,0 +1,10 @@
+{
+  "authority":
+  {
+    "__Comment for s3": "Replace this text within quotes with s3 bucket name.",
+    "s3": "ec2-rendering",
+
+    "__Comment for render_all": "render_all renders 1 image if false, and all images if true.",
+    "render_all": false
+  }
+}

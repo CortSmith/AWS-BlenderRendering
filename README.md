@@ -178,11 +178,11 @@ you will need to recreate your key, there is no other way to get a copy of your 
 
 - Configuration setup, starting from the top look for each item listed below, all other items are fine as default.
 
-    - Purchasing Options -> check Request Spot Instances, leave all other settings as default.
+    - Purchasing Options -> check the box: `Request Spot Instances`, leave all other settings as default.
     
-    - Subnet             -> subnet-2a1bfe52 | Default in us-west-2a
+    - Subnet             -> `subnet-2a1bfe52 | Default in us-west-2a`
     
-    - IAM role           -> ec2-rendering
+    - IAM role           -> `ec2-rendering`
 
 - Storage will be left as default
   

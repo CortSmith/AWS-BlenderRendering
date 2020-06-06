@@ -159,6 +159,62 @@ you will need to recreate your key, there is no other way to get a copy of your 
 
 ### Launch your EC2 instance
 
+- Find the Instances section in the left column, and click Instances below.
+
+- Click Launch Instance.
+
+- Now to choose your AMI, we will be using the `Ubuntu Server 16.04 LTS (HVM), SSD Volume Type`.
+
+  - An AMI stands for Amazon Machine Image, which is basically
+  
+  - You can search an AMI by its code in the search bar, 
+  the ami we are using has the code: `ami-008c6427c8facbe08`
+
+- Choosing an Instance Type, we are using the `t2.micro` free tier type.
+    
+  - Normally we would select a filter above the instance type list and set it to GPU Instances and choose one of 
+  these, but for our sake, this will work for tutorial purposes. Everything we do here will work on any other 
+  instance type
+
+- Configuration setup, starting from the top look for each item listed below, all other items are fine as default.
+
+- Purchasing Options -> check Request Spot Instances, leave all other settings as default.
+
+- Subnet             -> subnet-2a1bfe52 | Default in us-west-2a
+
+- IAM role           -> ec2-rendering
+
+- Storage will be left as default
+  
+  - We will attach our Volume later on after we start the instance.
+
+- Add a tag with the first section as 'Name', second section as 'ec2-rendering'
+  
+  - This will give our instance a name that we can see to identify our instance
+    
+- Set your security group
+
+  - Click the bubble, Select an existing security group, and find your security group in the list
+    
+    - Look under the Name section to find it.
+
+- Then click review and launch and click launch on the following page.
+
+- And you're done!
+
+Select free tier server, must be ubuntu.
+Subnet = us-west-2a
+IAM Role = ec2-rendering
+Skip Storage
+Add Tag: Name,EC2 Spot Instance Rendering
+Select the option bubble "Select an existing security group"
+Select your Security Group: ec2-rendering
+Launch
+
+---
+
+###[Placeholder]
+
 ---
 
 ### Connect to your instance

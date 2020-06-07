@@ -284,17 +284,36 @@ sudo apt-get install build-essential git subversion cmake libx11-dev libxxf86vm-
 - We are going to be building blender from source using precompiled libraries for Intel & AMD based linux systems.
 
 ```commandline
+# (Current directory is root/home/)
+
 mkdir blender-git/
 cd blender-git/
-git clone https://github.com/blender/blender.git
 
+# (Current directory is root/home/blender-git/)
+
+git clone https://github.com/blender/blender.git
 mkdir lib/
 cd lib
+
+# (Current directory is root/home/blender-git/lib)
+
 svn checkout https://svn.blender.org/svnroot/bf-blender/trunk/lib/linux_centos7_x86_64
 cd ..
+
+# (Current directory is root/home/blender-git/)
+
 cd blender/
+
+# (Current directory is root/home/blender-git/blender/)
+
 make update
 make
+cd ..
+
+# (Current directory is root/home/blender-git/)
+
+git clone https://github.com/CortSmith/AWS-BlenderRendering.git
+./build_linux/bin/blender --background ./AWS-BlenderRendering/source/Room.blend --python ./AWS-BlenderRendering/source/renderImages.py
 ```
 
 [//]: # (Steps that have yet to be setup.)

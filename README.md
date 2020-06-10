@@ -264,7 +264,10 @@ launch, and select it and click Attach.
   
 - Open a command prompt, you can do this by opening the start menu and searching cmd.
 
-- 
+- If you are using putty, you will be able to set the location of the .pem file you downloaded, set the ip address you 
+want to connect to, and save that to a profile so you dont have to set those values again.
+
+- Once you are connected, we need to install the dependencies that we need.
 
 ---
 
@@ -313,6 +316,20 @@ cd ..
 # (Current directory is root/home/blender-git/)
 
 git clone https://github.com/CortSmith/AWS-BlenderRendering.git
+```
+
+- Once everything is set, if you are NOT using the bucket name I used, you will need to set the name you will be using prior to running the script.
+
+- I've made a config file with a couple variables in there, one allows you to test your render script to make sure it works. 
+And the other is the s3 bucket name that the script will use to upload all of your images generated.
+
+- In the command prompt you used to connect to the ec2 instance, while still connected, 
+type `vim ./AWS-BlenderRendering/source/data.json`
+
+- Find the 's3' variable and WITHIN the quotes, change the text to the name of your s3 bucket verbatim otherwise the 
+script will stop and give you an error.
+
+```commandline
 ./build_linux/bin/blender --background ./AWS-BlenderRendering/source/Room.blend --python ./AWS-BlenderRendering/source/renderImages.py
 ```
 

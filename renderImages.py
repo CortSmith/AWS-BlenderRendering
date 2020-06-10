@@ -13,6 +13,10 @@ totalImagesRendered = 3
 filepath = ['/home/blender-git/render-output/',
             './renders/']
 
+# Download dependencies
+subprocess.Popen('wget', '--no-check-certificate', 'https://www.dropbox.com/sh/fpu6gcfoz68fwm7/AADZDBWeLTSdiBKJrURVD743a?dl=1')
+
+
 def main():
     # Set render resolution
     scene = bpy.context.scene

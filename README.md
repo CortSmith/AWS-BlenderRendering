@@ -23,6 +23,10 @@ Amazon Web Services, Blender, and Python.
 
 - [Precompiled Libraries for Blender]()
 
+[//]: # (Instruction to download folder from google drive in the main folder)
+
+- [Source Folder (Large Files)]('https://drive.google.com/drive/folders/1jm3LDtZSYOE3teynZF2hbYkgmkEnJnPH?usp=sharing')
+
 ---
 
 ### Create an S3 Bucket for Blender output files

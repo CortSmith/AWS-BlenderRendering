@@ -10,11 +10,16 @@ data = json.load(open('data.json'))
 
 totalImagesRendered = 3
 
+filepath = ['/home/blender-git/render-output/',
+            './renders/']
+
 def main():
     # Set render resolution
     scene = bpy.context.scene
     scene.render.resolution_x = 1920
     scene.render.resolution_y = 1080
+    
+    os.mkdir('./renders/')
     
     if data['authority']['render_all']:
         print("Rendering all images.")
@@ -31,7 +36,7 @@ def main():
             camera.rotation_euler.z = camera.desired_degree
             
             # Set render file location.
-            bpy.context.scene.render.filepath = ('/home/blender-git/render-output/image.' + i)
+            bpy.context.scene.render.filepath = (filepath[1] + 'image.' + i)
         
             # Begin rendering the image.
             bpy.ops.render.render(write_still=True)

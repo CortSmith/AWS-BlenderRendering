@@ -72,7 +72,7 @@ Amazon Web Services, Blender, and Python.
   
   - Select Create Role, to create a new role for our ec2 instance.
   
-  - Select the EC2 use case.
+  - Select the EC2 use case and click _Next: Permissions_ button at the bottom right of the page.
   
   - Now to add our permissions, search S3 and choose 'AmazonS3FullAccess'.
     

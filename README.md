@@ -201,7 +201,8 @@ you will need to recreate your key, there is no other way to get a copy of your 
   - An AMI stands for Amazon Machine Image
   
   - You can search an AMI by its code in the search bar, 
-  the ami we are using has the code: `ami-008c6427c8facbe08`
+  the ami we are using has the code: `ami-008c6427c8facbe08`,
+  which you can search for in the search bar.
 
 - Choosing an Instance Type, we are using the `t2.micro` free tier type.
     

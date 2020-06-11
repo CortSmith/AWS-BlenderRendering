@@ -135,7 +135,7 @@ software, and other dependencies.
 - On the left-hand side column there is a list of services for ec2. \
 Under Network & Security, find and select Security Groups.
 
-- On the top right of the page, click the Create Security Group button.
+- On the top left of the page, click the Create Security Group button.
 
 - Enter a name and description.
   
@@ -174,7 +174,7 @@ Keys are also required in order to connect to your ec2 instance.
 
 - Find 'Network & Security' tab, and select 'Key Pairs'.
 
-- On the top right, click 'Create Key Pair'
+- On the top left, click 'Create Key Pair'
 
 - Enter a name.
   

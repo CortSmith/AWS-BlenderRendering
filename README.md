@@ -112,7 +112,7 @@ software, and other dependencies.
 
 - Adjust the Size (GiB) value to a size in gigabytes that suits your needs.
 
-  - I generally wouldn't go over 100 gigabytes, but you will probably want around 10 - 20 max.
+  - I generally wouldn't go over 100 gigabytes, but you will probably want around 10 - 20 minimum.
   
 - Set the Availability Zone to us-west-2a.
 
@@ -122,7 +122,7 @@ software, and other dependencies.
 
   - In the first section enter 'Name', in the second section enter 'ec2-rendering'.
   
-- And you're done!
+- Click __Create Volume__ at the bottom right and you're done!
 
 ![](./source-md/V-1-CreateVolumeResult.png)
 

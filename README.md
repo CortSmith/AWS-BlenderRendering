@@ -154,6 +154,8 @@ Under Network & Security, find and select Security Groups.
 
   - Leave _Outbound Rules_ as is. Outbound rules are set to allow all outgoing traffic to any IP by Default.
   
+  - Click __Create__ on the bottom right of the window.
+  
 - Keep in mind you can change the Inbound and Outbound Rules at any time to adjust to your current needs, or 
 requirements, such as, allowing other ip's to connect and not just yours.
 

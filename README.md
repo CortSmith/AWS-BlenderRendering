@@ -204,7 +204,11 @@ you will need to recreate your key, there is no other way to get a copy of your 
   the ami we are using has the code: `ami-008c6427c8facbe08`,
   which you can search for in the search bar.
 
-- Choosing an Instance Type, we are using the `t2.micro` free tier type.
+- Choosing an Instance Type, we are using the `t2.large`. 
+
+  - Note: I attempted to run this script on free tier (t2.micro), but ran out of memory prior to actual image rendering.
+  
+[//]: # (Perhaps, a very small blender file could render on Free tier.)
     
   - Normally we would select a filter above the instance type list and set it to GPU Instances and choose one of 
   these, but for our sake, this will work for tutorial purposes. Everything we do here will work on any other 

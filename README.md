@@ -74,10 +74,14 @@ Amazon Web Services, Blender, and Python.
   
   - Select the EC2 use case and click __Next: Permissions__ button at the bottom right of the page.
   
-  - Now to add our permissions, search S3 and choose 'AmazonS3FullAccess', then click __Next: Tags__.
+  - Now to add our permissions, search S3 and choose 'AmazonS3FullAccess', then click __Next: Tags__ at the bottom right of the page.
     
     - Ideally we would select specific functions that our ec2 instance would require, however, 
     for this tutorial we will simply use full access.
+  
+  - Click __Next: Review__ at the bottom right of the page.
+  
+    - We don't need to add any tags to the IAM Role.
   
   - Enter the name and description and click create.
     

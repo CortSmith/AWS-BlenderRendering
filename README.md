@@ -222,13 +222,18 @@ you will need to recreate your key, there is no other way to get a copy of your 
     
     - IAM role           -> `ec2-rendering`
 
-- Storage will be left as default
-  
-  - We will attach our Volume later on after we start the instance.
+- Click __Next: Storage__
 
-- Add a tag with the first section as 'Name', second section as 'ec2-rendering'
+- Click __Next: Add Tags__ 
+
+    - Storage will be left as default.
+    We will attach our Volume later on after we start the instance.
+
+- Click __Add Tag__ and add a tag with the first section as 'Name', second section as 'ec2-rendering'
   
   - This will give our instance a name that we can see to identify our instance
+
+- Click __Next: Configure Security Group__
     
 - Set your security group
 

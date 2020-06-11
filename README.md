@@ -35,7 +35,7 @@ Amazon Web Services, Blender, and Python.
     
     - Click the Services dropdown at the top left of the website.
     
-    - Navigate to the search bar and enter "S3".
+    - Navigate to the search bar, enter "S3", and select the option named __S3__.
     
     - Click the Create Bucket button.
     
@@ -66,7 +66,7 @@ Amazon Web Services, Blender, and Python.
 
 ### Create an IAM Role and Security Group
 
-  - Search IAM under the Services tab.
+  - Search IAM under the Services tab and select the option named __IAM__.
   
   - Find and select the Roles section. It should be located in the middle column of the page, under __IAM Resources__
   
@@ -104,7 +104,7 @@ Amazon Web Services, Blender, and Python.
 -Volumes are storage blocks that allow you to save your files without having to re-download files, 
 software, and other dependencies.
 
-- Navigate to the EC2 Dashboard by searching EC2 under the Services tab.
+- Navigate to the EC2 Dashboard by searching EC2 under the Services tab and selecting the option named __EC2__.
 
 - In the left column, find the Elastic Block Store section, and select Volumes.
 

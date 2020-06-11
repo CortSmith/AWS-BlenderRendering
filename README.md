@@ -293,6 +293,26 @@ want to connect to, and save that to a profile so you dont have to set those val
 
 ---
 
+### Mounting your volume
+
+- At this point our volume is available in the form of a file in our root directory. We need to mount this file to a directory somewhere convenient within the root/home/ubuntu/ directory where we have write access.
+
+- [AWS Documentation] (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-using-volumes.html) on mounting attached volumes. The below is a quick code sequence to get your volume up and running.
+
+- We need to create a directory to mount our new storage volume. 
+
+- Then we need to identify our volume in the root directory and setup our volume with a filesystem.
+
+  - Currently it doesn't have any sort of filesystem it's simply an empty shell.
+  
+  ```
+  sudo mkdir vol
+  lsblk
+  
+  ```
+
+---
+
 ### Install dependencies
 
 - There is a good bit of setup within the server that needs to be done prior to running our script and getting our 

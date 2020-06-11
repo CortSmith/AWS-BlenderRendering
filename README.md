@@ -190,6 +190,8 @@ you will need to recreate your key, there is no other way to get a copy of your 
 
 ### Launch your EC2 instance
 
+- Search EC2 in the services tab search bar and select the option named "EC2"
+
 - Find the Instances section in the left column, and click Instances below.
 
 - Click Launch Instance.

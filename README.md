@@ -146,13 +146,13 @@ Under Network & Security, find and select Security Groups.
 
 - For simplicities sake, we will adding only one rule for All Traffic.
 
-- Under Inbound Rules and Outbound Rules, click Add Rule.
+- Under _Inbound Rules_, click Add Rule.
 
   - Change the Type to All Traffic.
 
   - Change Source to My IP
 
-  - Do the same under Outbound Rules, except Change the Source to Anywhere.
+  - Leave _Outbound Rules_ as is. Outbound rules are set to allow all outgoing traffic to any IP by Default.
   
 - Keep in mind you can change the Inbound and Outbound Rules at any time to adjust to your current needs, or 
 requirements, such as, allowing other ip's to connect and not just yours.

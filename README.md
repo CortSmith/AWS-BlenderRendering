@@ -68,7 +68,7 @@ Amazon Web Services, Blender, and Python.
 
   - Search IAM under the Services tab.
   
-  - Find and select the Roles section. It should be located on the initial page.
+  - Find and select the Roles section. It should be located in the middle column of the page, under __IAM Resources__
   
   - Select Create Role, to create a new role for our ec2 instance.
   

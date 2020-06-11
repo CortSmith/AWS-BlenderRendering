@@ -196,7 +196,7 @@ you will need to recreate your key, there is no other way to get a copy of your 
 
 - Now to choose your AMI, we will be using the `Ubuntu Server 16.04 LTS (HVM), SSD Volume Type`.
 
-  - An AMI stands for Amazon Machine Image, which is basically
+  - An AMI stands for Amazon Machine Image
   
   - You can search an AMI by its code in the search bar, 
   the ami we are using has the code: `ami-008c6427c8facbe08`

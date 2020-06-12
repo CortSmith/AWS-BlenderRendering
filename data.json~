@@ -1,0 +1,16 @@
+{
+  "authority":
+  {
+    "__Comment for s3": "Replace this text within quotes with s3 bucket name.",
+    "s3": "ec2-rendering",
+
+    "__Comment for render_all": "render_all renders 1 image if false, and all images if true.",
+<<<<<<< HEAD
+    "render_all": true
+=======
+    "render_all": false,
+    "__Comment for source files" : "public download link for source files.",
+    "source files" : "https://www.dropbox.com/sh/fpu6gcfoz68fwm7/AADZDBWeLTSdiBKJrURVD743a?dl=1"
+>>>>>>> 751f3fb0afa3ade5fde016d04da225181648c6df
+  }
+}

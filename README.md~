@@ -334,10 +334,7 @@ want to connect to, and save that to a profile so you dont have to set those val
 
   - Finally to mount it to the folder.
 
-  ```
-  sudo mount /dev/xvdf /home/ubuntu/workspace
-  cd workspace
-  ```
+  `sudo mount /dev/xvdf /home/ubuntu/workspace`
 
 TIPS:
 

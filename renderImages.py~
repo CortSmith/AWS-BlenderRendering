@@ -13,10 +13,6 @@ totalImagesRendered = 3
 filepath = ['/home/blender-git/render-output/',
             './renders/']
 
-# Download dependencies
-subprocess.Popen('wget', '--no-check-certificate', 'https://www.dropbox.com/sh/fpu6gcfoz68fwm7/AADZDBWeLTSdiBKJrURVD743a?dl=1')
-
-
 def main():
     # Set render resolution
     scene = bpy.context.scene
@@ -41,7 +37,7 @@ def main():
             camera.rotation_euler.z = desired_degree
             
             # Set render file location.
-            bpy.context.scene.render.filepath = (filepath[1] + 'image.' + str(i))
+            bpy.context.scene.render.filepath = (filepath[1] + 'image.' + i)
         
             # Begin rendering the image.
             bpy.ops.render.render(write_still=True)

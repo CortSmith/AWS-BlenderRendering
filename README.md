@@ -148,7 +148,7 @@ Under Network & Security, find and select Security Groups.
 
 - Under _Inbound Rules_, click Add Rule.
 
-  - Change the Type to All Traffic.
+  - Change the Type to SSH.
 
   - Change Source to My IP
 
@@ -288,6 +288,8 @@ launch, and select it and click Attach.
 
 - If you are using putty, you will be able to set the location of the .pem file you downloaded, set the ip address you 
 want to connect to, and save that to a profile so you dont have to set those values again.
+
+  - If your connection reports a Timeout error, go to the Security Groups section of the EC2 dashboard, select your security group. Below the list of security groups select the Inbound tab and click edit. Where the _Source_ column is change that to _My IP_ and try connecting again.
 
 - Once you are connected, we need to install the dependencies that we need.
 

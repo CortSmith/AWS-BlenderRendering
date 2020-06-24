@@ -310,7 +310,7 @@ want to connect to, and save that to a profile so you dont have to set those val
   - Currently it doesn't have any sort of filesystem it's simply an empty shell.
   
   ```
-  sudo mkdir vol
+  sudo mkdir workspace
   lsblk 
   ```
   
@@ -358,38 +358,8 @@ required for us to run the script on blender.
 ```commandline
 sudo apt-get update
 sudo apt-get install build-essential git subversion cmake libx11-dev libxxf86vm-dev libxcursor-dev libxi-dev libxrandr-dev libxinerama-dev libglew-dev
-```
 
-- We are going to be building blender from source using precompiled libraries for Intel & AMD based linux systems.
-
-```commandline
-# (Current directory is root/home/)
-
-mkdir blender-git/
-cd blender-git/
-
-# (Current directory is root/home/blender-git/)
-
-git clone https://github.com/blender/blender.git
-mkdir lib/
-cd lib
-
-# (Current directory is root/home/blender-git/lib)
-
-svn checkout https://svn.blender.org/svnroot/bf-blender/trunk/lib/linux_centos7_x86_64
-cd ..
-
-# (Current directory is root/home/blender-git/)
-
-cd blender/
-
-# (Current directory is root/home/blender-git/blender/)
-
-make update
-make
-cd ..
-
-# (Current directory is root/home/blender-git/)
+git clone https://github.com/CortSmith/blender-2.83.git
 
 git clone https://github.com/CortSmith/AWS-BlenderRendering.git
 ```

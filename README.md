@@ -401,9 +401,6 @@ unzip Room.zip
   
   - __TIP:__ Assuming you haven't used vim before, after you've run the above command, tap a to enter Append mode, use the arrow keys to move the cursor around, and to exit tap escape and type `:wq` <-- this (w) writes the changes to the file and (q) quits/exits vim.
 
-- Find the 's3' variable and WITHIN the quotes, change the text to the name of your s3 bucket verbatim otherwise the 
-script will stop and give you an error.
-
 - Run the script!
 
 ```commandline

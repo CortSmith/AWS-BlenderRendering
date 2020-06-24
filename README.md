@@ -392,13 +392,14 @@ cd /home/ubuntu/AWS-BlenderRendering/source/
 unzip Room.zip
 ```
 
-- Once everything is set, if you are NOT using the bucket name I used, you will need to set the name you will be using prior to running the script.
+- Once everything is set, if you are NOT using the bucket name I used, you will need to set the name you will be using prior to running the script. 
+  - I've made a config file with a couple variables in there, one allows you to test your render script to make sure it works, and the other is the s3 bucket name that the script will use to upload all of your images generated.
+  
+  - Use this command to update the config file:
 
-- I've made a config file with a couple variables in there, one allows you to test your render script to make sure it works. 
-And the other is the s3 bucket name that the script will use to upload all of your images generated.
-
-- In the command prompt you used to connect to the ec2 instance, while still connected, 
-type `vim /home/ubuntu/workspace/AWS-BlenderRendering/source/data.json`
+  `vim /home/ubuntu/workspace/AWS-BlenderRendering/source/data.json`
+  
+  - __TIP:__ Assuming you haven't used vim before, after you've run the above command, tap a to enter Append mode, use the arrow keys to move the cursor around, and to exit tap escape and type `:wq` <-- this (w) writes the changes to the file and (q) quits/exits vim.
 
 - Find the 's3' variable and WITHIN the quotes, change the text to the name of your s3 bucket verbatim otherwise the 
 script will stop and give you an error.

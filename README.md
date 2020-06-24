@@ -382,7 +382,7 @@ rm fixed-split-blender-2.83.0-linux64.zip
 ```commandline
 cat xa* > source.zip
 unzip source.zip
-mv source/* ../AWS-BlenderRendering/source/
+mv source/* /home/ubuntu/workspace/AWS-BlenderRendering/source/
 ```
 
 - Unzip the Room.zip file, this is the blender file we will be rendering images from.
@@ -398,13 +398,17 @@ unzip Room.zip
 And the other is the s3 bucket name that the script will use to upload all of your images generated.
 
 - In the command prompt you used to connect to the ec2 instance, while still connected, 
-type `vim ./AWS-BlenderRendering/source/data.json`
+type `vim /home/ubuntu/workspace/AWS-BlenderRendering/source/data.json`
 
 - Find the 's3' variable and WITHIN the quotes, change the text to the name of your s3 bucket verbatim otherwise the 
 script will stop and give you an error.
 
+- Run the script!
+
 ```commandline
-./build_linux/bin/blender --background ./AWS-BlenderRendering/source/Room.blend --python ./AWS-BlenderRendering/source/renderImages.py
+cd /home/ubuntu/workspace/AWS-BlenderRendering/
+
+/home/ubuntu/workspace/blender-2.83/blender-2.83.0-linux64/blender --background ./source/Room.blend --python /source/renderImages.py
 ```
 
 [//]: # (Steps that have yet to be setup.)

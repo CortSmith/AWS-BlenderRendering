@@ -11,7 +11,9 @@ Amazon Web Services, Blender, and Python.
 
 - [Python (3.7.6)(Optional)](https://www.python.org/downloads/release/python-376/)
 
-- [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
+- [Putty (Windows)(Alternative)(Optional)](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
+
+- [SSH]()
 
 ---
 
@@ -19,15 +21,7 @@ Amazon Web Services, Blender, and Python.
 
 - [Git]()
 
-- [Blender 2.83](`https://github.com/blender/blender.git`)
-
-- [Precompiled Libraries for Blender]()
-
-[//]: # (Instruction to download folder from google drive in the main folder)
-
-- [Source Folder (Large Files)]('https://drive.google.com/drive/folders/1jm3LDtZSYOE3teynZF2hbYkgmkEnJnPH?usp=sharing')
-
-    - Command to download source folder via cli --> wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=FILEID' -O FILENAME
+- [Blender 2.83](`https://github.com/blender/blender.git`) - Installed via public github repo in below section
 
 ---
 

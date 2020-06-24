@@ -364,6 +364,34 @@ git clone https://github.com/CortSmith/blender-2.83.git
 git clone https://github.com/CortSmith/AWS-BlenderRendering.git
 ```
 
+- If you cd into the blender directory you'll notice 3 files with the ending .z01, .z02, and .zip -- We need to combine these and unzip them to retrieve blender.
+
+```commandline
+sudo apt-get install zip unzip
+
+zip -FF split-blender-2.83.0-linux64.zip --out fixed-split-blender-2.83.0-linux64.zip
+
+unzip fixed-split-blender-2.83.0-linux64.zip
+
+rm split-blender-2.83.0-linux64.*
+rm fixed-split-blender-2.83.0-linux64.zip
+```
+
+- We also need to do reassemble our source folder and unpack it and move it to another directory.
+
+```commandline
+cat xa* > source.zip
+unzip source.zip
+mv source/* ../AWS-BlenderRendering/source/
+```
+
+- Unzip the Room.zip file, this is the blender file we will be rendering images from.
+
+```commandline
+cd /home/ubuntu/AWS-BlenderRendering/source/
+unzip Room.zip
+```
+
 - Once everything is set, if you are NOT using the bucket name I used, you will need to set the name you will be using prior to running the script.
 
 - I've made a config file with a couple variables in there, one allows you to test your render script to make sure it works. 

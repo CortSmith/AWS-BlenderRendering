@@ -347,7 +347,7 @@ Also, all partitions are located within the /dev directory on linux ec2.
 rendered images from blender. The following will be a series of commands used, in order, to install all dependencies 
 required for us to run the script on blender.
 
-- The below is a package manager update, and package installation.
+1. Download and install required packages.
 
 ```commandline
 sudo apt-get update
@@ -364,80 +364,65 @@ sudo apt-get install build-essential \
 			libglew-dev \
 			zip \
 			unzip
+```
 
+1. Navigate to the working directory and download required dependencies.
+
+```commandline
 cd /home/ubuntu/workspace
 
 git clone https://github.com/CortSmith/blender-2.83.git
 
 git clone https://github.com/CortSmith/AWS-BlenderRendering.git
+```
 
+- Install our dependencies.
+
+```commandline
 [//]: #(--------------------)
 
-cd blender-2.83/
+cd /home/ubuntu/workspace/blender-2.83/
 
 cat source/x* > source/source.zip
-cat blender/x* > blender.zip
+cat blender/x* > blender/blender.tar.xz
 
 unzip source/source.zip
-unzip blender/blender.zip
+tar -xvf blender/blender.tar.xz
 
 cd source
 unzip Room.blend
-cd ..
 
 [//]: #(--------------------)
 
-mv source/* /home/ubuntu/workspace/AWS-BlenderRendering/source/
+mv ./* /home/ubuntu/workspace/AWS-BlenderRendering/source/
 
 [//]: #(--------------------)
+```
 
+1. Run the script!
+  - !!! WARNING !!! Prior to running the script, you must set the name of your bucket within the data.json file. To do this simply use vim to edit the file:
+    
+    `vim /home/ubuntu/workspace/AWS-BlenderRendering/data.json`
+    
+    -Once you've run this command edit the line beginning with "s3" and change the corresponding text after the colon to your bucket name.
+
+```commandline
 cd /home/workspace/ubuntu/AWS-BlenderRendering
 /home/ubuntu/workspace/blender-2.83/blender-2.83.0-linux64/blender -b ./source/Room.blend --python ./renderImages.py
 ```
 
-- blah
+---
+
+### Run Script
+
+- Command is simple -> blender-executable
+			-b or --background (preference mostly)
+			blender file (contains 3d models)
+			--python python-script
 
 ```commandline
-
+/home/ubuntu/workspace/blender-2.83/blender-2.83.0-linux64/blender --background /home/ubuntu/workspace/AWS-BlenderRendering/source/Room.blend --python /home/ubuntu/workspace/AWS-BlenderRendering/renderImages.py
 ```
-
-- blah
-
-```commandline
-cat xa* > source.zip
-unzip source.zip
-mv source/* /home/ubuntu/workspace/AWS-BlenderRendering/source/
-```
-
-- Unzip the Room.zip file, this is the blender file we will be rendering images from.
-
-```commandline
-cd /home/ubuntu/AWS-BlenderRendering/source/
-unzip Room.zip
-```
-
-- Once everything is set, if you are NOT using the bucket name I used, you will need to set the name you will be using prior to running the script. 
-  - I've made a config file with a couple variables in there, one allows you to test your render script to make sure it works, and the other is the s3 bucket name that the script will use to upload all of your images generated.
-  
-  - Use this command to update the config file:
-
-  `vim /home/ubuntu/workspace/AWS-BlenderRendering/source/data.json`
-  
-  - __TIP:__ Assuming you haven't used vim before, after you've run the above command, tap a to enter Append mode, use the arrow keys to move the cursor around, and to exit tap escape and type `:wq` <-- this (w) writes the changes to the file and (q) quits/exits vim.
-
-- Run the script!
-
-```commandline
-cd /home/ubuntu/workspace/AWS-BlenderRendering/
-
-/home/ubuntu/workspace/blender-2.83/blender-2.83.0-linux64/blender --background ./source/Room.blend --python /source/renderImages.py
-```
-
-[//]: # (Steps that have yet to be setup.)
-- After the build finished, you will find blender ready to run in ~/blender-git/build_linux/bin.
-- clone the git repo in a common repository
-- run blender in the background on your script and blender project file.
-- project files should upload directly to your s3 bucket as it renders images.
 
 ---
 

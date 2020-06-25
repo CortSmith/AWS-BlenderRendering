@@ -351,27 +351,57 @@ required for us to run the script on blender.
 
 ```commandline
 sudo apt-get update
-sudo apt-get install build-essential git subversion cmake libx11-dev libxxf86vm-dev libxcursor-dev libxi-dev libxrandr-dev libxinerama-dev libglew-dev
+sudo apt-get install build-essential \
+		     	git \
+		     	subversion \
+			cmake \
+			libx11-dev \
+			libxxf86vm-dev \
+			libxcursor-dev \
+			libxi-dev \
+			libxrandr-dev \
+			libxinerama-dev \
+			libglew-dev \
+			zip \
+			unzip
+
+cd /home/ubuntu/workspace
 
 git clone https://github.com/CortSmith/blender-2.83.git
 
 git clone https://github.com/CortSmith/AWS-BlenderRendering.git
+
+[//]: #(--------------------)
+
+cd blender-2.83/
+
+cat source/x* > source/source.zip
+cat blender/x* > blender.zip
+
+unzip source/source.zip
+unzip blender/blender.zip
+
+cd source
+unzip Room.blend
+cd ..
+
+[//]: #(--------------------)
+
+mv source/* /home/ubuntu/workspace/AWS-BlenderRendering/source/
+
+[//]: #(--------------------)
+
+cd /home/workspace/ubuntu/AWS-BlenderRendering
+/home/ubuntu/workspace/blender-2.83/blender-2.83.0-linux64/blender -b ./source/Room.blend --python ./renderImages.py
 ```
 
-- If you cd into the blender directory you'll notice 3 files with the ending .z01, .z02, and .zip -- We need to combine these and unzip them to retrieve blender.
+- blah
 
 ```commandline
-sudo apt-get install zip unzip
 
-zip -FF split-blender-2.83.0-linux64.zip --out fixed-split-blender-2.83.0-linux64.zip
-
-unzip fixed-split-blender-2.83.0-linux64.zip
-
-rm split-blender-2.83.0-linux64.*
-rm fixed-split-blender-2.83.0-linux64.zip
 ```
 
-- We also need to do reassemble our source folder and unpack it and move it to another directory.
+- blah
 
 ```commandline
 cat xa* > source.zip

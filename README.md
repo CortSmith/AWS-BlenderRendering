@@ -293,6 +293,10 @@ want to connect to, and save that to a profile so you dont have to set those val
 
 ### Mounting your volume
 
+__You can skip this section, I've included just the commands required to mount the volume in the next section.__
+
+_Disclaimer: This section has some additional information that you may find useful._
+
 - At this point our volume is available in the form of a file in our root directory. We need to mount this file to a directory somewhere convenient within the root/home/ubuntu/ directory where we have write access.
 
 - [AWS Documentation] (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-using-volumes.html) on mounting attached volumes. The below is a quick code sequence to get your volume up and running.

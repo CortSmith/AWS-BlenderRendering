@@ -415,10 +415,15 @@ cd /home/workspace/ubuntu/AWS-BlenderRendering
 
 ### Run Script
 
-- Command is simple -> blender-executable
-			-b or --background (preference mostly)
-			blender file (contains 3d models)
-			--python python-script
+Command is simple -> 
+			
+			`blender-executable`
+			
+			`-b or --background (preference mostly)`
+			
+			`blender file (contains 3d models)`
+			
+			`--python python-script`
 
 ```commandline
 /home/ubuntu/workspace/blender-2.83/blender-2.83.0-linux64/blender --background /home/ubuntu/workspace/AWS-BlenderRendering/source/Room.blend --python /home/ubuntu/workspace/AWS-BlenderRendering/renderImages.py

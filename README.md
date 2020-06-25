@@ -421,9 +421,9 @@ Command is simple ->
 			
 			`-b or --background (preference mostly)`
 			
-			`blender file (contains 3d models)`
+			`blender-file.blend (contains 3d models)`
 			
-			`--python python-script`
+			`--python python-script.py`
 
 ```commandline
 /home/ubuntu/workspace/blender-2.83/blender-2.83.0-linux64/blender --background /home/ubuntu/workspace/AWS-BlenderRendering/source/Room.blend --python /home/ubuntu/workspace/AWS-BlenderRendering/renderImages.py

@@ -366,6 +366,18 @@ sudo apt-get install build-essential \
 			unzip
 ```
 
+1. (Optional) Mount volume -- Chances are your attached volume is /dev/xvdf
+  - Simply run these 3 commands that will: 
+    1. make your working directory, 
+    1. make a filesystem on your volume, 
+    1. and mount it to your working directory.
+
+```commandline
+  mkdir /home/ubuntu/workspace
+  sudo mkfs -t xfs /dev/xvdf
+  sudo mount /dev/xvdf /home/ubuntu/workspace
+  ```
+
 1. Navigate to the working directory and download required dependencies.
 
 ```commandline
@@ -416,14 +428,18 @@ cd /home/workspace/ubuntu/AWS-BlenderRendering
 ### Run Script
 
 Command is simple -> 
+
+```commandline
+			blender-executable
 			
-			`blender-executable`
+			-b or --background (preference mostly)
 			
-			`-b or --background (preference mostly)`
+			blender-file.blend (contains 3d models)
 			
-			`blender-file.blend (contains 3d models)`
-			
-			`--python python-script.py`
+			--python python-script.py
+```
+
+Below is the full command based on the previous sections of setup.
 
 ```commandline
 /home/ubuntu/workspace/blender-2.83/blender-2.83.0-linux64/blender --background /home/ubuntu/workspace/AWS-BlenderRendering/source/Room.blend --python /home/ubuntu/workspace/AWS-BlenderRendering/renderImages.py

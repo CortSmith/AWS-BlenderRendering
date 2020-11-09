@@ -1,11 +1,16 @@
 # Author: Cort Smith
+# Description: Render panoramic images at rotational intervals. 
+#              (Max rotation per render is determined by total number of renders desired.)
+
 
 import json
 import os
 import sys
 import bpy
 
-
+# Json encoder.
+#   Allows us to convert a class instance to json 
+#   format by returning its dictionary.
 class Encoder(json.JSONEncoder):
     def default(self, o):
         return o.__dict__
@@ -39,10 +44,11 @@ class Settings:
         return self
 
 
-
+# Upload base class to cloud storage.
 class Uploader:
     def __init__(self):
-        pass
+        self.credentials = ()
+    
 
 
 
@@ -155,7 +161,41 @@ class Renderer:
                 self.__dict__ = json.load(f)
     
     def render(self, settings, state):
-        pass
+        
+        if renderer.render:
+            state.images_rendered = 1
+            for f in Renderer.furniture_levels:
+                for l in Renderer.lighting_levels:
+                    scene.render.filepath = "{}\\{}\\{}.image.{}.F{}.L{}.png".format(
+                        settings.render_path, 
+                        state.uuid, 
+                        state.uuid, 
+                        state.images_rendered, f, l)
+                    bpy.ops.render.render(write_still=True)
+                    state.save_configuration(settings)
+
+        if renderer.render == 2:
+            for i in Renderer.total_renders:
+                if state.continue_rendering and i == 0:
+                    i = state.images_rendered
+                    continue
+
+                for f in renderer.furniture_levels:
+                    for l in renderer.lighting_levels:
+                        scene.render.filepath = "{}\\{}\\{}.image.{}.F{}.L{}.png".format(
+                            settings.render_path, 
+                            state.uuid, 
+                            state.uuid, 
+                            state.images_rendered, f, l)
+                        bpy.ops.render.render(write_still=True)
+                        state.save_configuration(settings)
+            
+            state.images_rendered = i
+    
+        state.continue_rendering = False
+        state.save_configuration(settings)
+
+
 
 def main():
     scene = bpy.context.scene
@@ -173,37 +213,6 @@ def main():
     renderer.load(settings)
     state = State(settings).load(settings)
     
-    if renderer.render:
-        state.images_rendered = 1
-        for f in Renderer.furniture_levels:
-            for l in Renderer.lighting_levels:
-                scene.render.filepath = "{}\\{}\\{}.image.{}.F{}.L{}.png".format(
-                        settings.render_path, 
-                        state.uuid, 
-                        state.uuid, 
-                        state.images_rendered, f, l)
-                bpy.ops.render.render(write_still=True)
-                state.save_configuration(settings)
-
-    if renderer.render == 2:
-        for i in Renderer.total_renders:
-            if state.continue_rendering and i == 0:
-                i = state.images_rendered
-                continue
-
-            for f in renderer.furniture_levels:
-                for l in renderer.lighting_levels:
-                    scene.render.filepath = "{}\\{}\\{}.image.{}.F{}.L{}.png".format(
-                            settings.render_path, 
-                            state.uuid, 
-                            state.uuid, 
-                            state.images_rendered, f, l)
-                    bpy.ops.render.render(write_still=True)
-                    state.save_configuration(settings)
-            state.images_rendered = i
-    
-    state.continue_rendering = False
-    state.save_configuration(settings)
 
     bpy.ops.wm.quit_blender()
     sys.exit()

@@ -1,96 +1,79 @@
+#!/usr/bin/python3
+# Author: Cort Smith
 
-import bpy
-import json
 import os
 import sys
-import subprocess
+import bpy
+import time
+import toml
 import uuid
+import random
 
-class State:
-    def __init__(self):
-        self.images_rendered = 0
-        self._continue = False
-        self.uuid = ""
+def load_config(path):
+    """Loads a dictionary from configuration file.
 
-class Renderer:
-    def __init__(self):
-        # String => Unique render session id
-        self.uuid = str(uuid.uuid4())[:8]
-        
-        # Boolean => Allow rendering of single image for testing or all images.
-        self.render = False
-        
-        # Boolean => Identifies which os is currently running this script.
-        self.os = sys.platform
-        
-        # Render State
-        self.state = State()
-        
-        # Use aws to render images with blender.
-        self.use_aws = False
-        
-        # String => System paths to directories
-        self.project_path = os.getcwd()
-        self.render_path = self.project_path + '/renders' + self.uuid
-        self.source_path = self.project_path + '/source'
+    Args:
+        path: the path to load the configuration from.
 
-    def build_dependencies(self):
-        if not os.path.exists(self.render_path):
-            os.mkdir(self.render_path)
-        
-        if not os.path.exists(self.source_path + '/renderer.json'):
-            if not os.path.exists(self.source_path)
-                os.mkdir(self.source_path)
-            json.dump(self, self.source_path + '/renderer.json')
-           
-    def load_configuration_files(self):
-        render_state = json.load(open(self.source_path + 'state.json', 'r'))
-        self.state.uuid = render_state['uuid']
-        self.state._continue = render_state['_continue']
-    
-    def set_render_settings(self):
-        pass
+    Returns:
+        The configuration dictionary loaded from the file.
+    """
+    return toml.load(path)
 
-    def setup(self):
-        self.build_dependencies()
-        self.load_configuration_files()
-        
-    def save_file(self):
-        pass
+config = load_config('config.toml')
+settings = config['Settings']
+render = config['Render']
 
-    def render(self):
-        pass
-
-
-
-# File identifier
-fileUUID= str(uuid.uuid4())[:8]
-
-# filepaths and authority
-data = json.load(open('config.json'))
-
-# Render state save in case of crash
-render_state = json.load(open('render_state.json'))
-
-totalImagesRendered = 4
-
-# Download dependencies
-#subprocess.Popen('wget', '--no-check-certificate', 'https://www.dropbox.com/sh/fpu6gcfoz68fwm7/AADZDBWeLTSdiBKJrURVD743a?dl=1')
-
-
+random.seed(time.time() % int(settings['furniture_levels'][4]))
 
 def main():
+    uuid = str(uuid.uuid4())[:8]
+    config['render']['session_id'] = uuid
+
     # Set render resolution
     scene = bpy.context.scene
     objects = bpy.data.objects
-    rotation_degree = 360 / totalImagesRendered
-    
-    render_state['continue_render'] = True
+    rotation_degree = 360 / settings['max_renders']
+    camera = objects['Camera']
 
-    scene.render.resolution_x = 1920
-    scene.render.resolution_y = 1080
+    render['continue_render'] = True
+
+    scene.render.resolution_x = settings['render_resolution'][0]
+    scene.render.resolution_y = settings['render_resolution'][1]
     
-    if data['authority']['render_all']:
+    if render['render']:
+        if render['full_render']:
+            pass
+            for f in settings['furniture_levels']:
+                for l in settings['lighting_levels']:
+                    pass
+                # f
+            # else
+        # if
+        else:
+            for i in range(settings['max_renders']):
+                desired_degree = camera.rotation_euler.z + rotation_degree
+                scene.render.filepath = "{}/{}/{}.{}.{}".format(os.getcwd() + '/renders/', uuid, 'image', uuid, str(i))
+                if render[session_completed]:
+                    i = int (render['rendered_images'])
+                config['render']['rendered_images'] = i
+                bpy.ops.render.render(write_still=True)
+                # i
+            # else
+        # if
+
+    bpy.ops.wm.quit_blender()
+    sys.exit()
+    # Main()
+
+
+
+
+
+
+
+    """
+    if Settings['render_all']:
         print("Rendering all images.")
         
         # Set camera object.
@@ -129,7 +112,6 @@ def main():
     
     render_state['continue_render'] = False
     bpy.ops.wm.quit_blender()
+"""
     
 
-if __name__ == "__main__":
-    main()

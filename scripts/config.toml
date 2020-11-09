@@ -1,0 +1,51 @@
+# Local configuration file.
+
+[AWS]                    # Login credentials to for use with AWS services; EC2, S3, etc.
+
+use_aws = false	         # Enable aws service features.
+
+username = "un321"       # AWS account username
+
+password = "pw123"       # AWS account password
+
+aws_bucket_id = "no s3"  # AWS bucket id
+
+
+
+
+[Render]                 # State of the last render session.
+
+session_id = ""          # Unique session uuid.
+
+session_complete = true  # Last session completed without interruption.
+
+rendered_images = 0      # Number of completed renders last session.
+
+furniture_level = 0      # Furniture level reached before session end.
+
+lighting_level = 0       # Lighting level reached before session end.
+
+
+
+[Settings]               # Static settings prior to render session.
+
+render = true            # Allow image rendering. (False renders no images regardless of full_render.)
+
+render_resolution = ['1920','1080']
+
+full_render = false      # Render all camera angles and lighting/furniture levels.
+
+max_renders = 1        # Number of images to render.
+
+furniture_levels = ['0', '5', '10', '15', '20']          # Percentage of furniture to display per iteration.
+
+lighting_levels = ['0.7', '0.85', '1.0', '1.15', '1.3']  # Percentage of lighting brightness to use per iteration.
+
+camera = 'Camera'        # Scene camera
+
+labels = ['furniture', 'light', 'GT', 'camera', 'cp.']    # Object labels
+
+collections = ['Furniture', 'Lights', 'GroundTruth', 'CameraPositions']  # Collections / Object groups.
+
+
+

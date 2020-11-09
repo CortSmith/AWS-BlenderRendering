@@ -1,0 +1,212 @@
+# Author: Cort Smith
+
+import json
+import os
+import sys
+import bpy
+
+
+class Encoder(json.JSONEncoder):
+    def default(self, o):
+        return o.__dict__
+
+
+class Settings:
+    project_path = os.getcwd()
+    render_path = os.getcwd() + '\\renders\\'
+    source_path = os.getcwd() + '\\source\\'
+    
+    def __init(self):
+        self.os = sys.platform
+        self.use_aws = False
+    
+    def load(self):
+        filename = Settings.source_path + 'settings.json'
+        if not os.path.isfile(filename):
+            filename = open(Settings.source_path + 'settings.json', 'r')
+            self.__dict__ = json.load(filename)
+        else:
+            filename = Settings.source_path + 'settings.json'
+            print ("settings.json not found.")
+            print ("Generating new settings file...")
+            open(filename, 'w+')
+        return self
+
+    def save(self):
+        Encoder().encode(self)
+        filename = Settings.source_path + 'settings.json'
+        json.dump(self, open(filename,'w+'), indent=4, cls=Encoder)
+        return self
+
+
+
+class Uploader:
+    def __init__(self):
+        pass
+
+
+
+class State:
+    def __init__(self, settings: Settings):
+        self.uuid = ""
+        self.images_rendered = 0
+        self.continue_rendering = False
+        self.furniture_level = 0
+        self.lighting_level = 0
+    
+        if not os.path.exists(settings.source_path + 'state.json'):
+            self.create_new_configuration()
+            self.save(settings)
+    
+    def save(self, settings: Settings) -> None:
+        Encoder().encode(self)
+        filename = settings.source_path + 'state.json'
+        with open(filename, 'w+') as f:
+            json.dump(self, f, indent=4, cls=Encoder)
+    
+    def load(self, settings: Settings) -> None:
+        filename = settings.source_path + 'state.json'
+        if not os.path.isfile(filename):
+            print ("state.json not found...\nAssuming no previous rendering has occurred.")
+            print ("Program will continue as a new render session.")
+            Encoder().encode(self)
+            json.dump(self, open(filename,'w+'), indent=4, cls=Encoder)
+        else:
+            with open(filename, 'r') as f:
+                self.__dict__ = json.load(f)
+
+    def create_new_configuration(self) -> None:
+        self.uuid = uuid.uuid4()
+        self.images_rendered = 0
+        self.continue_rendering = True
+        self.furniture_level = 0
+        self.lighting_level = 0
+
+
+
+
+class Credentials:
+    def __init__(self, settings: Settings):
+        self.__service = ""
+        self.username = ""
+        self.password = ""
+
+        self.load_credentials(settings)
+
+    def load_credentials(self, settings: Settings) -> None:
+        filename = self.settings.source_path + self.__service + 'credentials.json'
+        if os.path.isfile(filename):
+            with open (filename, 'r') as f:
+                self.__dict__ = json.load(f)
+        else:
+            print ("Credentials file does not exist...")
+            print ("Generating new credentials file...")
+            open(self.__settings.source_path + self.__service + 'credentials.json', 'w+')
+            print ("Stopping program")
+            sys.exit()
+    
+    def save_credentials(self, settings: Settings=Settings()) -> None:
+        Encoder().encode(self)
+        filename = settings.source_path + __service + 'credentials.json'
+        with open(filename, 'w+') as f:
+            json.dump(self, filename, indent=4, cls=Encoder)
+
+
+
+class AWSCredentials(Credentials):
+    def __init__(self):
+        self.__service = "aws_"
+        self.bucket_id = ""
+
+
+
+class GoogleDocsCredentials(Credentials):
+    def __init__(self):
+        self.__service = "googledocs_"
+        self.location = ""
+
+
+
+class Renderer:
+    def __init__(self, settings: Settings):
+        self.render = False
+        self.total_renders = 100
+        self.lighting_levels = [.6,.75, .9, 1.05, 1.2]
+        self.furniture_levels = [0,5,10,15,20]
+        self.build_deps(settings)
+    
+    def build_deps(self, settings: Settings) -> None:
+        print ("Building dependencies for Renderer")
+        if not os.path.exists(settings.source_path + 'renderer.json'):
+            self.save(settings)
+    
+    def save(self, settings: Settings) -> None:
+        filename = settings.source_path + 'renderer.json'
+        with open(filename, 'w+') as f:
+            Encoder().encode(self)
+            json.dump(self, f, indent=4, cls=Encoder)
+    
+    def load(self, settings: Settings, filename: str = 'renderer.json') -> None:
+        f = settings.source_path + filename
+        if not os.path.isfile(f):
+            self.save(settings)
+        else:
+            with open(f, 'r') as f:
+                self.__dict__ = json.load(f)
+    
+    def render(self, settings, state):
+        pass
+
+def main():
+    scene = bpy.context.scene
+    obj = bpy.data.objects
+
+    camera = obj['Camera']
+
+    scene.render.resolution_x = 1920
+    scene.render.resolution_y = 1080
+    
+    settings = Settings()
+    settings.load()
+
+    renderer = Renderer(settings)
+    renderer.load(settings)
+    state = State(settings).load(settings)
+    
+    if renderer.render:
+        state.images_rendered = 1
+        for f in Renderer.furniture_levels:
+            for l in Renderer.lighting_levels:
+                scene.render.filepath = "{}\\{}\\{}.image.{}.F{}.L{}.png".format(
+                        settings.render_path, 
+                        state.uuid, 
+                        state.uuid, 
+                        state.images_rendered, f, l)
+                bpy.ops.render.render(write_still=True)
+                state.save_configuration(settings)
+
+    if renderer.render == 2:
+        for i in Renderer.total_renders:
+            if state.continue_rendering and i == 0:
+                i = state.images_rendered
+                continue
+
+            for f in renderer.furniture_levels:
+                for l in renderer.lighting_levels:
+                    scene.render.filepath = "{}\\{}\\{}.image.{}.F{}.L{}.png".format(
+                            settings.render_path, 
+                            state.uuid, 
+                            state.uuid, 
+                            state.images_rendered, f, l)
+                    bpy.ops.render.render(write_still=True)
+                    state.save_configuration(settings)
+            state.images_rendered = i
+    
+    state.continue_rendering = False
+    state.save_configuration(settings)
+
+    bpy.ops.wm.quit_blender()
+    sys.exit()
+
+if __name__ == '__main__':
+    main()

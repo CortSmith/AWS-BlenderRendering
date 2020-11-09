@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Vi
+*~
+
 # C extensions
 *.so
 
@@ -131,4 +134,3 @@ dmypy.json
 # External Dependencies
 # 	(e.g. Large files, images, and 3d objects.)
 source/
-

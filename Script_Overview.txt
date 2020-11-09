@@ -1,0 +1,131 @@
+AWS-BlenderRendering
+--------------------------------------------------
+The goal of this program is to render hundreds of thousands 
+realistic images that may be used to augment machine learning 
+training process.  Previous projects that I have worked in 
+have shown good improvements using this process.
+--------------------------------------------------
+Blender Project Naming Conventions
+	All furniture objects should start with "furniture."
+	All light objects should start with "light."
+	All ground truth objects should start with "gt."
+	There should be Four collections:
+		GroundTruth
+		Furniture
+		Lighting
+		Camera
+--------------------------------------------------
+Class Encoder(json.JSONEncoder)
+	+default(object): dictionary
+
+Class Uploader
+	+default(void): void
+
+Class GoogleDocsUploader(Uploader)
+	+__init__(credentials, docs_folder): boolean
+		Returns false if upload failed
+
+Class Settings
+	-aws_user_login:		string
+	-aws_user_password:		string
+	-aws_bucket_id:			string
+	-os:					string
+	-use_aws:				string
+	+load_settings(void):	void
+	+save_settings(void):	void
+	
+
+Class State
+	-uuid:						string
+	-images_rendered:			int
+	-continue_rendering:		boolean
+	-furniture_level:			int
+		the last furniture_level before exiting.
+	-lighting_level:			int
+		the last lighting_level before exiting.
+	+load_configuration(continue_rendering): void
+		Load into State instance
+	+save_configuration(void): 				 void
+		Save State to json file
+	+create_new_configuration(void): 		 void
+		Set new uuid, 
+		reset images_rendered, 
+		set continue_rendering to true
+
+Class Renderer
+	-render: 					int
+		Should render 0, 1, or all images
+	-total_renders:				int
+		Total number of full render
+	-os: 						string
+		Operating System script is being run on
+	-lighting_levels:			int array
+		Should contain values  {min_brightness <= x <= max_brightness}
+		Example: [0.60, 0.75, 0.90, 1.05, 1.20] "e.g. 60% 75% 90% 105% 120%"
+	-furniture_levels:			int array
+		Should contain values  {0 <= x <= total_furniture_objects}
+		Example: [0,5,10,15,20] "e.g. 0% 25% 50% 75% 100%"
+	-project_path: 				string
+		Automatic setting
+	-render_path: 				string
+		Automatic setting
+	-source_path: 				string
+		Automatic setting
+	+build_deps(void):			void
+		Create required directories in project folder
+	+save_configuration(void):  void
+		Save Renderer to json file
+	+load_configuration(void): 	void
+		Load into Renderer instance
+	+render(int, int):				boolean
+		Input is a range, from a to b
+		Returns true when rendering is complete
+
+
+
+
+
+Main
+	Set scene context variable
+	Set object data variable
+	Set render resolution x|y
+	Set camera object variable
+	
+	Create variable array for Lighting levels
+	Create variable array for Furniture levels
+	
+	Create Renderer variable
+	Create State variable
+	
+	Load configuration file for Renderer
+	Load configuration file for State
+	
+	# Full render for one camera rotation setting
+	if Renderer.render = 1
+		For i in total_renders
+			For f in furniture_levels
+				For l lighting_levels
+					Set render location and image name
+						"render_path\\uuid\\uuid.image.images_rendered.Ff.Ll.png"
+						"{}\\{}\\{}.image.{}.F{}.L{}.png".format(Renderer.render_path, State.uuid, State.uuid, Renderer.images_rendered, f, l)
+						Where f is the increment of the previous for loop
+							and l is the increment of this for loop.
+					Begin rendering
+			Increment State.images_rendered
+		
+	# Full Render for all camera rotation settings
+	if Renderer.render = 2
+	for loop Renderer.total_renders
+		For f in furniture_levels
+			For l lighting_levels
+				Set render location and image name
+					"render_path\\uuid\\uuid.image.images_rendered.Ff.Ll.png"
+					"{}\\{}\\{}.image.{}.F{}.L{}.png".format(Renderer.render_path, State.uuid, State.uuid, Renderer.images_rendered, f, l)
+					Where f is the increment of the previous for loop
+						and l is the increment of this for loop.
+				Begin rendering
+				Increment State.images_rendered
+	
+	# Exit program when finished
+	Exit program
+	

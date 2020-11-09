@@ -4,59 +4,132 @@ import json
 import os
 import sys
 import subprocess
+import uuid
+
+class State:
+    def __init__(self):
+        self.images_rendered = 0
+        self._continue = False
+        self.uuid = ""
+
+class Renderer:
+    def __init__(self):
+        # String => Unique render session id
+        self.uuid = str(uuid.uuid4())[:8]
+        
+        # Boolean => Allow rendering of single image for testing or all images.
+        self.render = False
+        
+        # Boolean => Identifies which os is currently running this script.
+        self.os = sys.platform
+        
+        # Render State
+        self.state = State()
+        
+        # Use aws to render images with blender.
+        self.use_aws = False
+        
+        # String => System paths to directories
+        self.project_path = os.getcwd()
+        self.render_path = self.project_path + '/renders' + self.uuid
+        self.source_path = self.project_path + '/source'
+
+    def build_dependencies(self):
+        if not os.path.exists(self.render_path):
+            os.mkdir(self.render_path)
+        
+        if not os.path.exists(self.source_path + '/renderer.json'):
+            if not os.path.exists(self.source_path)
+                os.mkdir(self.source_path)
+            json.dump(self, self.source_path + '/renderer.json')
+           
+    def load_configuration_files(self):
+        render_state = json.load(open(self.source_path + 'state.json', 'r'))
+        self.state.uuid = render_state['uuid']
+        self.state._continue = render_state['_continue']
+    
+    def set_render_settings(self):
+        pass
+
+    def setup(self):
+        self.build_dependencies()
+        self.load_configuration_files()
+        
+    def save_file(self):
+        pass
+
+    def render(self):
+        pass
 
 
-data = json.load(open('data.json'))
 
-totalImagesRendered = 3
+# File identifier
+fileUUID= str(uuid.uuid4())[:8]
 
-filepath = ['/home/blender-git/render-output/',
-            './renders/']
+# filepaths and authority
+data = json.load(open('config.json'))
+
+# Render state save in case of crash
+render_state = json.load(open('render_state.json'))
+
+totalImagesRendered = 4
 
 # Download dependencies
-subprocess.Popen('wget', '--no-check-certificate', 'https://www.dropbox.com/sh/fpu6gcfoz68fwm7/AADZDBWeLTSdiBKJrURVD743a?dl=1')
+#subprocess.Popen('wget', '--no-check-certificate', 'https://www.dropbox.com/sh/fpu6gcfoz68fwm7/AADZDBWeLTSdiBKJrURVD743a?dl=1')
+
 
 
 def main():
     # Set render resolution
     scene = bpy.context.scene
+    objects = bpy.data.objects
+    rotation_degree = 360 / totalImagesRendered
+    
+    render_state['continue_render'] = True
+
     scene.render.resolution_x = 1920
     scene.render.resolution_y = 1080
-    
-    if not os.path.exists('./renders/'):
-        os.mkdir('./renders/')
     
     if data['authority']['render_all']:
         print("Rendering all images.")
         
         # Set camera object.
-        camera = bpy.data.objects['Camera.001']
+        camera = objects['Camera.001']
         
         for i in range(totalImagesRendered):
-            
+
             # Set Camera desired degree.
-            desired_degree = camera.rotation_euler.z + 180 / totalImagesRendered
+            desired_degree = camera.rotation_euler.z + rotation_degree
             
             # Rotate camera by desired degree.
             camera.rotation_euler.z = desired_degree
             
             # Set render file location.
-            bpy.context.scene.render.filepath = (filepath[1] + 'image.' + str(i))
-        
+            bpy.context.scene.render.filepath = "{}/{}/{}.{}.{}".format(data['render_path'], fileUUID, 'image', str(fileUUID),str(i))
+            
+            if render_state['continue_render'] and i == 0:
+                i = int (render_state['images_rendered'])
+            
+            render_state['images_rendered'] = i
+
             # Begin rendering the image.
             bpy.ops.render.render(write_still=True)
+            
+            render_state['images_rendered'] = i
+            json.dump(render_state, open('render_state.json','w'))
         
     else:
         print ("Rendering single image.")
         
         # Set render file location.
-        bpy.context.scene.render.filepath = (filepath[1])
+        bpy.context.scene.render.filepath = (data['render_path'])
     
         # Begin rendering the image.
         bpy.ops.render.render(write_still=True)
     
+    render_state['continue_render'] = False
     bpy.ops.wm.quit_blender()
-
+    
 
 if __name__ == "__main__":
     main()

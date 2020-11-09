@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 # Author: Cort Smith
 
 import os
@@ -8,6 +7,7 @@ import time
 import toml
 import uuid
 import random
+
 
 def load_config(path):
     """Loads a dictionary from configuration file.
@@ -20,6 +20,7 @@ def load_config(path):
     """
     return toml.load(path)
 
+
 config = load_config('config.toml')
 settings = config['Settings']
 render = config['Render']
@@ -27,8 +28,8 @@ render = config['Render']
 random.seed(time.time() % int(settings['furniture_levels'][4]))
 
 def main():
-    uuid = str(uuid.uuid4())[:8]
-    config['render']['session_id'] = uuid
+    session_id = str(uuid.uuid4())[:8]
+    config['Render']['session_id'] = uuid
 
     # Set render resolution
     scene = bpy.context.scene
@@ -40,7 +41,7 @@ def main():
 
     scene.render.resolution_x = settings['render_resolution'][0]
     scene.render.resolution_y = settings['render_resolution'][1]
-    
+
     if render['render']:
         if render['full_render']:
             pass
@@ -53,10 +54,13 @@ def main():
         else:
             for i in range(settings['max_renders']):
                 desired_degree = camera.rotation_euler.z + rotation_degree
-                scene.render.filepath = "{}/{}/{}.{}.{}".format(os.getcwd() + '/renders/', uuid, 'image', uuid, str(i))
-                if render[session_completed]:
-                    i = int (render['rendered_images'])
-                config['render']['rendered_images'] = i
+                # {C:/Path/To/Dir/../renders/} {session_id} / {image}.{images_rendered.png}
+                scene.render.filepath = "{}/{}/{}.{}.png".format(os.getcwd() + '../renders/',
+                                                                 session_id, 'image', str(i))
+                if not render['session_completed']:
+                    i = int(render['rendered_images'])
+
+                config['Render']['rendered_images'] = i
                 bpy.ops.render.render(write_still=True)
                 # i
             # else
@@ -67,10 +71,8 @@ def main():
     # Main()
 
 
-
-
-
-
+if __name__ == '__main__':
+    main()
 
     """
     if Settings['render_all']:
@@ -113,5 +115,3 @@ def main():
     render_state['continue_render'] = False
     bpy.ops.wm.quit_blender()
 """
-    
-

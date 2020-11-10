@@ -25,8 +25,6 @@ config = load_config('config.toml')
 settings = config['Settings']
 render = config['Render']
 
-random.seed(time.time() % int(settings['furniture_levels'][4]))
-
 def main():
     session_id = str(uuid.uuid4())[:8]
     config['Render']['session_id'] = uuid
@@ -36,6 +34,23 @@ def main():
     objects = bpy.data.objects
     rotation_degree = 360 / settings['max_renders']
     camera = objects['Camera']
+    # Save the base energy rating value, in watts.
+    default_light_energy_rating = 1000
+    default_world_lighting = 2
+
+    # Collections
+    world = bpy.data.worlds['World']
+    bg = world.node_tree.nodes['Background']
+    collections = {'GT' : bpy.data.collection['GroundTruth'],
+                   'Lights' : bpy.data.collection['Lights'],
+                   'Furniture' : bpy.data.collection['Furniture']}
+
+    # Set DEFAULT lighting for world background.
+    bg.inputs[1].default_value = default_world_lighting
+    # Set DEFAULT lighting for in-door lights.
+    for i in collections['Lights']:
+        if collections['Lights'].data.startswith('light.'):
+            i.data.energy = default_light_energy_rating
 
     render['continue_render'] = True
 
@@ -44,26 +59,49 @@ def main():
 
     if render['render']:
         if render['full_render']:
-            pass
             for f in settings['furniture_levels']:
+                # Contains indices
+                furniture_to_render = [[]]
+
+                # Pick random indices in the list of furniture objects.
+                for i in range(f):
+                    furniture_to_render[i] = random.seed(time.time() % f)
+
+                #
                 for l in settings['lighting_levels']:
-                    pass
+                    # Set light level for world background.
+                    bg.inputs[1].default_value = default_world_lighting * l
+
+                    # Set the power rating for all in-door lights in the scene.
+                    for i in collections['Lights']:
+                        if collections['Lights'].data.startswith('light.'):
+                            i.data.energy = default_light_energy_rating * l
+
                 # f
+
             # else
+
         # if
         else:
             for i in range(settings['max_renders']):
                 desired_degree = camera.rotation_euler.z + rotation_degree
+
                 # {C:/Path/To/Dir/../renders/} {session_id} / {image}.{images_rendered.png}
+
                 scene.render.filepath = "{}/{}/{}.{}.png".format(os.getcwd() + '../renders/',
                                                                  session_id, 'image', str(i))
+
                 if not render['session_completed']:
                     i = int(render['rendered_images'])
 
                 config['Render']['rendered_images'] = i
+
                 bpy.ops.render.render(write_still=True)
+
                 # i
+
             # else
+
         # if
 
     bpy.ops.wm.quit_blender()

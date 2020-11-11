@@ -66,7 +66,7 @@ def main():
         bpy.ops.render.render(write_still=True)
 
         # Upload latest render.
-        subprocess.call(['aws', 's3','cp',filepath[1] + 'image.png'])
+        subprocess.call(['aws', 's3','cp',filepath[1] + 'image.png', 's3://{}'.format(data['authority']['s3'])])
     
     bpy.ops.wm.quit_blender()
 

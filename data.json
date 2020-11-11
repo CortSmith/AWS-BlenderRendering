@@ -2,7 +2,7 @@
   "authority":
   {
     "__Comment": "Replace the text within quotes with s3 bucket name.",
-    "s3": "ec2-rendering",
+    "s3": "render-output",
 
     "__Comment": "render_all renders 1 image if false, and all images if true.",
     "render_all": true,

@@ -11,8 +11,8 @@ subprocess.call([python, '-m', 'pip', 'install', 'boto3'])
 
 import boto3
 
-# Without this, the rendering will finish after a few days.
-bpy.context.scene.cycles.use_square_samples = False
+# Without this, the rendering will finish after a few days. Should be False.
+bpy.context.scene.cycles.use_square_samples = True
 
 data = json.load(open('data.json'))
 
@@ -41,6 +41,9 @@ def main():
         camera = bpy.data.objects['Camera.001']
         
         for i in range(imagesToRender):
+
+            # Image
+            image = "image.{}".format(str(i))
             
             # Set Camera desired degree.
             desired_degree = camera.rotation_euler.z + 180 / imagesToRender
@@ -49,14 +52,15 @@ def main():
             camera.rotation_euler.z = desired_degree
             
             # Set render file location.
-            bpy.context.scene.render.filepath = (filepath[1] + 'image.' + str(i))
+            bpy.context.scene.render.filepath = (filepath[1] + image)
         
             # Begin rendering the image.
             bpy.ops.render.render(write_still=True)
 
             # Upload latest render.
-            subprocess.call(['aws', 's3','cp',filepath[1] + 'image.' + str(i) + '.png', 's3://{}'.format(data['authority']['s3'])])
-
+            subprocess.call(['aws', 's3','cp', filepath[1] + image + '.png', 
+                's3://{}/{}.png'.format(data['authority']['s3'], image)])
+            
         
     else:
         print ("Rendering single image.")
@@ -68,7 +72,8 @@ def main():
         bpy.ops.render.render(write_still=True)
 
         # Upload latest render.
-        subprocess.call(['aws', 's3','cp',filepath[1] + 'image.png', 's3://{}'.format(data['authority']['s3'])])
+        subprocess.call(['aws', 's3','cp',filepath[1] + 'image.png', 
+            's3://{}/image.png'.format(data['authority']['s3'])])
     
     bpy.ops.wm.quit_blender()
 

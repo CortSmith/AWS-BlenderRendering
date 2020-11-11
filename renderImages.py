@@ -4,8 +4,10 @@ import os
 import subprocess
 import sys
 
-subprocess.call(['python', '-m', 'ensurepip'])
-subprocess.call(['python', '-m', 'pip', 'install', 'boto3'])
+python = "../blender-2.83/blender-2.83.0-linux64/2.83/python/bin/python3.7m"
+
+subprocess.call([python, '-m', 'ensurepip'])
+subprocess.call([python, '-m', 'pip', 'install', 'boto3'])
 
 import boto3
 

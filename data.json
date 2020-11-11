@@ -1,13 +1,19 @@
 {
   "authority":
   {
-    "__Comment for s3": "Replace this text within quotes with s3 bucket name.",
+    "__Comment": "Replace the text within quotes with s3 bucket name.",
     "s3": "ec2-rendering",
 
-    "__Comment for render_all": "render_all renders 1 image if false, and all images if true.",
+    "__Comment": "render_all renders 1 image if false, and all images if true.",
     "render_all": true,
 
-    "__Comment for source files" : "public download link for source files.",
+    "__Comment" : "public download link for source files.",
     "source files" : "https://www.dropbox.com/sh/fpu6gcfoz68fwm7/AADZDBWeLTSdiBKJrURVD743a?dl=1"
+  },
+
+  "options":
+  {
+	"__Comment" : "How many images should be rendered before stopping.",
+    "images_to_render" : 3,
   }
 }

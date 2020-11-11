@@ -1,20 +1,23 @@
-
 import bpy
 import json
 import os
-import sys
 import subprocess
+import sys
 
+subprocess.Popen('python', '-m', 'ensurepip')
+subprocess.Popen('python', '-m', 'pip', 'install', 'boto3')
+
+import boto3
 
 data = json.load(open('data.json'))
 
-totalImagesRendered = 3
+imagesToRender = data['options']['images_to_render']
 
 filepath = ['/home/blender-git/render-output/',
             './renders/']
 
 # Download dependencies
-subprocess.Popen('wget', '--no-check-certificate', 'https://www.dropbox.com/sh/fpu6gcfoz68fwm7/AADZDBWeLTSdiBKJrURVD743a?dl=1')
+# subprocess.Popen('wget', '--no-check-certificate', 'https://www.dropbox.com/sh/fpu6gcfoz68fwm7/AADZDBWeLTSdiBKJrURVD743a?dl=1')
 
 
 def main():
@@ -32,10 +35,10 @@ def main():
         # Set camera object.
         camera = bpy.data.objects['Camera.001']
         
-        for i in range(totalImagesRendered):
+        for i in range(imagesToRender):
             
             # Set Camera desired degree.
-            desired_degree = camera.rotation_euler.z + 180 / totalImagesRendered
+            desired_degree = camera.rotation_euler.z + 180 / imagesToRender
             
             # Rotate camera by desired degree.
             camera.rotation_euler.z = desired_degree
@@ -45,15 +48,22 @@ def main():
         
             # Begin rendering the image.
             bpy.ops.render.render(write_still=True)
+
+            # Upload latest render.
+            subprocess.Popen('aws', 's3','cp',filepath[1] + 'image.' + str(i) + '.png')
+
         
     else:
         print ("Rendering single image.")
         
         # Set render file location.
-        bpy.context.scene.render.filepath = (filepath[1])
+        bpy.context.scene.render.filepath = (filepath[1] + 'image.png')
     
         # Begin rendering the image.
         bpy.ops.render.render(write_still=True)
+
+        # Upload latest render.
+        subprocess.Popen('aws', 's3','cp',filepath[1] + 'image.png')
     
     bpy.ops.wm.quit_blender()
 

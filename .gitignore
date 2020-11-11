@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# AWS Credentials file.
+login.txt
+
 # C extensions
 *.so
 

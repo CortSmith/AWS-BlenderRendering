@@ -21,6 +21,8 @@ Amazon Web Services, Blender, and Python.
 
 - [Git]()
 
+- [Python (3.7.6)(Optional)](https://www.python.org/downloads/release/python-376/)
+
 - [Blender 2.83](`https://github.com/blender/blender.git`) - Installed via public github repo in below section
 
 ---
@@ -393,6 +395,7 @@ git clone https://github.com/CortSmith/AWS-BlenderRendering.git
 ```
 
 - Install our dependencies.
+  - Below we combine the compressed parts into the zip file we expect and uncompress them.
 
 ```commandline
 [//]: #(--------------------)
@@ -449,7 +452,4 @@ Below is the full command based on the previous sections of setup.
 /home/ubuntu/workspace/blender-2.83/blender-2.83.0-linux64/blender --background /home/ubuntu/workspace/AWS-BlenderRendering/source/Room.blend --python /home/ubuntu/workspace/AWS-BlenderRendering/renderImages.py
 ```
 
----
-
-### Expenses
 

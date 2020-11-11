@@ -14,6 +14,6 @@
   "options":
   {
 	"__Comment" : "How many images should be rendered before stopping.",
-    "images_to_render" : 3,
+    "images_to_render" : 3
   }
 }

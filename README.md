@@ -409,7 +409,7 @@ unzip source/source.zip
 tar -xvf blender/blender.tar.xz
 
 cd source
-unzip Room.blend
+unzip Room.zip
 
 [//]: #(--------------------)
 
@@ -427,6 +427,7 @@ mv ./* /home/ubuntu/workspace/AWS-BlenderRendering/source/
 
 ```commandline
 cd /home/workspace/ubuntu/AWS-BlenderRendering
+git checkout minimal
 /home/ubuntu/workspace/blender-2.83/blender-2.83.0-linux64/blender -b ./source/Room.blend --python ./renderImages.py
 ```
 

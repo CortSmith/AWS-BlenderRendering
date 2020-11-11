@@ -4,8 +4,8 @@ import os
 import subprocess
 import sys
 
-subprocess.Popen('python', '-m', 'ensurepip')
-subprocess.Popen('python', '-m', 'pip', 'install', 'boto3')
+subprocess.call(['python', '-m', 'ensurepip'])
+subprocess.call(['python', '-m', 'pip', 'install', 'boto3'])
 
 import boto3
 
@@ -50,7 +50,7 @@ def main():
             bpy.ops.render.render(write_still=True)
 
             # Upload latest render.
-            subprocess.Popen('aws', 's3','cp',filepath[1] + 'image.' + str(i) + '.png')
+            subprocess.call(['aws', 's3','cp',filepath[1] + 'image.' + str(i) + '.png'])
 
         
     else:
@@ -63,7 +63,7 @@ def main():
         bpy.ops.render.render(write_still=True)
 
         # Upload latest render.
-        subprocess.Popen('aws', 's3','cp',filepath[1] + 'image.png')
+        subprocess.call(['aws', 's3','cp',filepath[1] + 'image.png'])
     
     bpy.ops.wm.quit_blender()
 

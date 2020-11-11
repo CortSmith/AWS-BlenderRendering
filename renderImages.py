@@ -12,7 +12,7 @@ subprocess.call([python, '-m', 'pip', 'install', 'boto3'])
 import boto3
 
 # Without this, the rendering will finish after a few days. Should be False.
-bpy.context.scene.cycles.use_square_samples = True
+bpy.context.scene.cycles.use_square_samples = False
 
 data = json.load(open('data.json'))
 
@@ -60,7 +60,7 @@ def main():
             # Upload latest render.
             subprocess.call(['aws', 's3','cp', filepath[1] + image + '.png', 
                 's3://{}/{}.png'.format(data['authority']['s3'], image)])
-            
+
         
     else:
         print ("Rendering single image.")

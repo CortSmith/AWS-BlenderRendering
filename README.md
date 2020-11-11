@@ -287,9 +287,13 @@ launch, and select it and click Attach.
 - If you are using putty, you will be able to set the location of the .pem file you downloaded, set the ip address you 
 want to connect to, and save that to a profile so you dont have to set those values again.
 
+  - If necessary, launch putty-gen, set the password (you will use it to login once connected to ec2) and create a .ppk version using the same name as the original key but with .ppk after it. Click `save private key` and save it to the same directory as the pem key file.
+
   - If your connection reports a Timeout error, go to the Security Groups section of the EC2 dashboard, select your security group. Below the list of security groups select the Inbound tab and click edit. Where the _Source_ column is change that to _My IP_ and try connecting again.
 
-- Once you are connected, we need to install the dependencies that we need.
+- Once you are connected, login with username "ubuntu" and password of ssh key file (if set).
+
+- Then we are going to install the dependencies that we need in the next section.
 
 ---
 
@@ -357,7 +361,7 @@ required for us to run the script on blender.
 
 ```commandline
 sudo apt-get update
-sudo apt-get install build-essential \
+sudo apt-get install -y build-essential \
 		     	git \
 		     	subversion \
 			cmake \
@@ -369,7 +373,8 @@ sudo apt-get install build-essential \
 			libxinerama-dev \
 			libglew-dev \
 			zip \
-			unzip
+			unzip \
+      awscli
 ```
 
 1. (Optional) Mount volume -- Chances are your attached volume is /dev/xvdf

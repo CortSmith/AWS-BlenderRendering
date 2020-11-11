@@ -9,6 +9,9 @@ subprocess.call(['python', '-m', 'pip', 'install', 'boto3'])
 
 import boto3
 
+# Without this, the rendering will finish after a few days.
+bpy.context.scene.cycles.use_square_samples = False
+
 data = json.load(open('data.json'))
 
 imagesToRender = data['options']['images_to_render']
